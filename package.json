@@ -1,0 +1,23 @@
+{
+  "name": "course-work",
+  "version": "1.0.0",
+  "description": "Course work for Aleshchenko",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yachek/Course-work.git"
+  },
+  "author": "Chekotun Yaroslav",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yachek/Course-work/issues"
+  },
+  "homepage": "https://github.com/yachek/Course-work#readme",
+  "dependencies": {
+    "create-react-app": "^3.4.1",
+    "react-scripts": "^3.4.1"
+  }
+}
