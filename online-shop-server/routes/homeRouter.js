@@ -3,6 +3,7 @@ const Item = require('../models/Item');
 const auth = require('../middleware');
 const multer = require('multer');
 const config = require('../config');
+const fs = require('fs');
 
 const router = express.Router();
 router.use(express.json());
@@ -53,24 +54,48 @@ router.route('/')
             }, (err) => next(err))
             .catch((err) => {
                 console.log(err);
-                res.status(500).send("Error adding new item please try again.");
+                next(err);
             });
     });
 
 router.route('/:itemId')
-    .get(auth.verifyUser, auth.verifyAdmin, (req, res, next) => {
+    .get((req, res, next) => {
         Item.findById(req.params.itemId)
             .then((item) => {
                 res.statusCode = 200;
                 res.setHeader('Content-type', 'application/json');
                 res.json(item);
             }, (err) => next(err))
-            .catch((error) => {
-                console.log(error);
-                res.status(400).json({err: "Ooops, something went wrong!"});
+            .catch((err) => {
+                console.log(err);
+                next(err);
             });
     })
-    .post(auth.verifyUser, auth.verifyAdmin, (req, res, next) => {
+    .put(auth.verifyUser, auth.verifyAdmin, (req, res, next) => {
+        Item.findByIdAndUpdate(req.params.itemId, {
+            $set: req.body
+        })
+            .then((item) => {
+                res.statusCode = 200;
+                res.setHeader('Content-type', 'application/json');
+                res.json(item);
+            }, (err) => (next(err)))
+            .catch((err) => {
+                console.log(err);
+                next(err);
+            })
+    })
+    .delete(auth.verifyUser, auth.verifyAdmin, (req, res, next) => {
+        Item.findByIdAndRemove(req.body._id)
+            .then((resp) => {
+                res.statusCode = 200;
+                res.setHeader('Content-type', 'application/json');
+                res.json(resp);
+            }, (err) => next(err))
+            .catch((err) => {
+                console.log(err);
+                next(err);
+            });
     });
 
 router.route('/:itemId/upload')
@@ -97,6 +122,9 @@ router.route('/:itemId/upload')
                         $set: {photoPath: path}
                     })
                         .then((item) => {
+                            fs.unlink(fileData.path, (err) => {
+                                console.warn(err)
+                            });
                             res.statusCode = 200;
                             res.setHeader('Content-type', 'application/json');
                             res.json(item);

@@ -9,6 +9,10 @@ const Item = new mongoose.Schema({
         type: String,
         required: true
     },
+    shortDescription: {
+        type: String,
+        default: ''
+    },
     description: {
         type: String,
         default: ''
@@ -16,6 +20,10 @@ const Item = new mongoose.Schema({
     photoPath: {
         type: String,
         default: ''
+    },
+    likes: {
+        type: Number,
+        default: 0
     }
 });
 

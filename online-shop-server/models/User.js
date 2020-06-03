@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const paspportLocalMongoose = require('passport-local-mongoose');
+const passportLocalMongoose = require('passport-local-mongoose');
 
 const User = new mongoose.Schema({
     username: {
@@ -17,12 +17,13 @@ const User = new mongoose.Schema({
         default: '',
         required: true
     },
+    likedItems: [{type: mongoose.Schema.Types.ObjectID, ref: 'Item'}],
     isAdmin: {
         type: Boolean,
         default: false
     }
 });
 
-User.plugin(paspportLocalMongoose);
+User.plugin(passportLocalMongoose);
 
 module.exports = mongoose.model('User', User);

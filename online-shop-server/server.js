@@ -14,6 +14,7 @@ const config = require('./config');
 const homeRouter = require('./routes/homeRouter');
 const usersRouter = require('./routes/usersRouter');
 const indexRouter = require('./routes/index');
+const likedRouter = require('./routes/likedRouter');
 
 const URL = config.mongoUrl;
 
@@ -42,5 +43,6 @@ app.use(passport.initialize());
 app.use('/', indexRouter);
 app.use('/home', homeRouter);
 app.use('/user', usersRouter);
+app.use('/liked', likedRouter);
 
 app.listen(process.env.PORT || 8080);
