@@ -13,6 +13,8 @@ router.route('/')
             .then((user) => {
                 res.statusCode = 200;
                 res.setHeader('Content-Type', 'application/json');
+                res.setHeader('Access-Control-Allow-Origin', '*');
+                res.setHeader('Access-Control-Allow-Headers', 'origin, content-type, accept, Authorization');
                 res.json(user.likedItems);
             }, (err) => next(err));
     })
@@ -28,6 +30,8 @@ router.route('/')
                                 .then((user) => {
                                     res.statusCode = 200;
                                     res.setHeader('Content-Type', 'application/json');
+                                    res.setHeader('Access-Control-Allow-Origin', '*');
+                                    res.setHeader('Access-Control-Allow-Headers', 'origin, content-type, accept, Authorization');
                                     res.json(user.likedItems);
                                 }, (err) => next(err));
                         }, (err) => next(err));
@@ -60,6 +64,8 @@ router.route('/')
                                 .then((user) => {
                                     res.statusCode = 200;
                                     res.setHeader('Content-Type', 'application/json');
+                                    res.setHeader('Access-Control-Allow-Origin', '*');
+                                    res.setHeader('Access-Control-Allow-Headers', 'origin, content-type, accept, Authorization');
                                     res.json(user.likedItems);
                                 }, (err) => next(err));
                         }, (err) => next(err));

@@ -37,19 +37,26 @@ const upload = multer({ storage: storage, fileFilter: imageFileFilter});
 
 router.route('/')
     .get((req, res, next) => {
+        console.log('Get in /home');
         Item.find({})
             .then((items) => {
                 res.statusCode = 200;
                 res.setHeader('Content-Type', 'application/json');
+                //console.log(items);
+                res.setHeader('Access-Control-Allow-Origin', '*');
+                res.setHeader('Access-Control-Allow-Headers', 'origin, content-type, accept, Authorization');
                 res.json(items);
             }, (err) => next(err))
             .catch((err) => next(err));
     })
     .post(auth.verifyUser, auth.verifyAdmin, (req, res, next) => {
+        console.log('post in /home');
         Item.create(req.body)
             .then((items) => {
                 res.statusCode = 200;
                 res.setHeader('Content-Type', 'application/json');
+                res.setHeader('Access-Control-Allow-Origin', '*');
+                res.setHeader('Access-Control-Allow-Headers', 'origin, content-type, accept, Authorization');
                 res.json(items);
             }, (err) => next(err))
             .catch((err) => {
@@ -60,10 +67,13 @@ router.route('/')
 
 router.route('/:itemId')
     .get((req, res, next) => {
+        console.log('Get in /home/:itemId');
         Item.findById(req.params.itemId)
             .then((item) => {
                 res.statusCode = 200;
                 res.setHeader('Content-type', 'application/json');
+                res.setHeader('Access-Control-Allow-Origin', '*');
+                res.setHeader('Access-Control-Allow-Headers', 'origin, content-type, accept, Authorization');
                 res.json(item);
             }, (err) => next(err))
             .catch((err) => {
@@ -72,12 +82,15 @@ router.route('/:itemId')
             });
     })
     .put(auth.verifyUser, auth.verifyAdmin, (req, res, next) => {
+        console.log('Put in /home/:itemId');
         Item.findByIdAndUpdate(req.params.itemId, {
             $set: req.body
         })
             .then((item) => {
                 res.statusCode = 200;
                 res.setHeader('Content-type', 'application/json');
+                res.setHeader('Access-Control-Allow-Origin', '*');
+                res.setHeader('Access-Control-Allow-Headers', 'origin, content-type, accept, Authorization');
                 res.json(item);
             }, (err) => (next(err)))
             .catch((err) => {
@@ -90,6 +103,8 @@ router.route('/:itemId')
             .then((resp) => {
                 res.statusCode = 200;
                 res.setHeader('Content-type', 'application/json');
+                res.setHeader('Access-Control-Allow-Origin', '*');
+                res.setHeader('Access-Control-Allow-Headers', 'origin, content-type, accept, Authorization');
                 res.json(resp);
             }, (err) => next(err))
             .catch((err) => {
@@ -127,6 +142,8 @@ router.route('/:itemId/upload')
                             });
                             res.statusCode = 200;
                             res.setHeader('Content-type', 'application/json');
+                            res.setHeader('Access-Control-Allow-Origin', '*');
+                            res.setHeader('Access-Control-Allow-Headers', 'origin, content-type, accept, Authorization');
                             res.json(item);
                         }, (err) => next(err))
                         .catch((err) => next(err))
